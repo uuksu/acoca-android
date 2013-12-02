@@ -69,14 +69,31 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
+			
+			Fragment fragment = null;
+			
+			// Selecting right fragment based on tab position
+			switch(position) {
+			case 0:
+				fragment = new MainboardFragment();
+				break;
+			case 1:
+				fragment = new DrinksFragment();
+				break;
+			case 2:
+				fragment = new SettingsFragment();
+				break;
+			}
+			
+			return fragment;
+			
+			/*
 			Fragment fragment = new DummySectionFragment();
 			Bundle args = new Bundle();
 			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
+			*/
 		}
 
 		@Override
@@ -90,25 +107,25 @@ public class MainActivity extends FragmentActivity {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return getString(R.string.mainboard_title).toUpperCase(l);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
+				return getString(R.string.drinks_title).toUpperCase(l);
 			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+				return getString(R.string.settings_title).toUpperCase(l);
 			}
 			return null;
 		}
 	}
 
-	/**
+/*	*//**
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
-	 */
+	 *//*
 	public static class DummySectionFragment extends Fragment {
-		/**
+		*//**
 		 * The fragment argument representing the section number for this
 		 * fragment.
-		 */
+		 *//*
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public DummySectionFragment() {
@@ -117,7 +134,7 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
+			View rootView = inflater.inflate(R.layout.mainboard_fragment,
 					container, false);
 			TextView dummyTextView = (TextView) rootView
 					.findViewById(R.id.section_label);
@@ -125,6 +142,6 @@ public class MainActivity extends FragmentActivity {
 					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
-	}
+	}*/
 
 }
