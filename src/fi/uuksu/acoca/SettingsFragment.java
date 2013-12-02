@@ -19,7 +19,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		
 		View v = inflater.inflate(R.layout.settings_fragment, container, false);
 		
-		Button b = (Button) v.findViewById(R.id.button1);
+		Button b = (Button) v.findViewById(R.id.saveSettingsButton);
 		b.setOnClickListener(this);
 		
 		return v;
@@ -32,7 +32,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		
 		switch(v.getId()) 
 		{
-		case R.id.button1:
+		case R.id.saveSettingsButton:
 			Toast.makeText(activity, "Hello World", Toast.LENGTH_SHORT).show();
 			break;
 		}
