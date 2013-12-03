@@ -13,5 +13,11 @@
     <string name="save_settings">Save settings</string>
     <string name="body_weight">Body weight (kg):</string>
     <string name="sex">Sex:</string>
+    <string name="name">Name:</string>
+    <string name="price">Price:</string>
+    <string name="alcohol_level">Alcohol Level:</string>
+    <string name="amount">Amount:</string>
+    <string name="add">Add</string>
+    <string name="add_new_drink">Add new drink</string>
 
 </resources>
