@@ -56,16 +56,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/amountTextBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/addNewDrinkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="addDrinkButtonOnClick"
         android:text="@string/add" />
 
 </LinearLayout>

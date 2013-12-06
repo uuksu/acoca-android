@@ -23,9 +23,7 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		query = "CREATE TABLE DrinkSession (id INTEGER PRIMARY KEY, startTime INTEGER, endTime INTEGER)";
 		db.execSQL(query);
 		
-		query = "CREATE TABLE ConsumedDrink (id INTEGER PRIMARY KEY, addTime INTEGER, drinkId INTEGER, drinkSessionId INTEGER, " +
-				"FOREIGN KEY(drinkId) REFERENCES Drink(id), " +
-				"FOREIGN KEY(drinkSessionId) REFERENCES DrinkSession(id)";
+		query = "CREATE TABLE ConsumedDrink (id INTEGER PRIMARY KEY, addTime INTEGER, drinkId INTEGER, drinkSessionId INTEGER)";
 		db.execSQL(query);
 	}
 

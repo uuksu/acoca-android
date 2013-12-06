@@ -22,6 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name="fi.uuksu.acoca.AddNewDrinkActivity"
+            android:label="@string/add_new_drink"
+            android:parentActivityName="fi.uuksu.acoca.MainActivity"
+            >
+        </activity>
     </application>
 
 </manifest>

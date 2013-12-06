@@ -10,7 +10,7 @@
     tools:context=".MainActivity$DrinksFragment" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/addNewDrinkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_new_drink" >

@@ -1,5 +1,7 @@
 package fi.uuksu.acoca;
 
+import android.content.Context;
+
 public class Drink {
 	private int id;
 	private String name;
@@ -53,5 +55,12 @@ public class Drink {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	public void saveToDatabase(Context context) {
+		AcocaDatabase db = new AcocaDatabase(context);
+		
+		db.addNewDrink(getName(), getValue(), getAlcoholLevel(), getAmount());
+		
 	}
 }
