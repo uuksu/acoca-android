@@ -25,6 +25,9 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		
 		query = "CREATE TABLE ConsumedDrink (id INTEGER PRIMARY KEY, addTime INTEGER, drinkId INTEGER, drinkSessionId INTEGER)";
 		db.execSQL(query);
+		
+		query = "CREATE TABLE Setting (key TEXT PRIMARY KEY, value TEXT)";
+		db.execSQL(query);
 	}
 
 	@Override
@@ -36,6 +39,9 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		db.execSQL(query);
 		
 		query = "DROP TABLE IF EXISTS ConsumedDrink";
+		db.execSQL(query);
+		
+		query = "DROP TABLE IF EXISTS Setting";
 		db.execSQL(query);
 		
 		this.onCreate(db);
@@ -144,6 +150,44 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 			} while(cursor.moveToNext());
 		}
 		return null;
+	}
+	
+	public void updateSetting(String key, String value) {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		String query = "SELECT * FROM Setting WHERE key = '" + key + "'";
+		
+		Cursor cursor = database.rawQuery(query, null);
+		
+		ContentValues values = new ContentValues();
+		values.put("key", key);
+		values.put("value", value);
+		
+		if (cursor.getCount() > 0)
+		{
+			database.update("Setting", values, "key = '?'", new String[] { key });
+		} else {
+			database.insert("Setting", null, values);
+		}
+	}
+	
+	public String getSetting(String key) {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		String query = "SELECT * FROM Setting WHERE key = '" + key + "'";
+		
+		Cursor cursor = database.rawQuery(query, null);
+		
+		if (cursor.getCount() == 0)
+		{
+			return null;
+		}
+		
+		cursor.moveToFirst();
+		
+		return cursor.getString(1);
 	}
 
 }
