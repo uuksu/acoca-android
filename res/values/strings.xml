@@ -19,5 +19,8 @@
     <string name="amount">Amount:</string>
     <string name="add">Add</string>
     <string name="add_new_drink">Add new drink</string>
+    <string name="drink_confirmation">Do you want to consume this drink?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

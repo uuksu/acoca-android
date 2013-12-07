@@ -1,7 +1,9 @@
 package fi.uuksu.acoca;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
@@ -48,6 +52,28 @@ public class MainActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+	}
+	
+	@Override
+	protected void onStart() {
+		
+		super.onStart();
+
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		/*
+		AcocaDatabase db = new AcocaDatabase(this);
+		ArrayList<Drink> drinks = db.getDrinks();
+		Drink[] drinksArray = drinks.toArray(new Drink[drinks.size()]);
+		
+		ListView drinkListView = (ListView) findViewById(R.id.drinkListView);
+		drinkListView.setAdapter(new DrinkListViewAdapter(this, drinksArray));
+		*/
 	}
 
 	@Override
@@ -86,14 +112,6 @@ public class MainActivity extends FragmentActivity {
 			}
 			
 			return fragment;
-			
-			/*
-			Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
-			return fragment;
-			*/
 		}
 
 		@Override
@@ -116,32 +134,5 @@ public class MainActivity extends FragmentActivity {
 			return null;
 		}
 	}
-
-/*	*//**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 *//*
-	public static class DummySectionFragment extends Fragment {
-		*//**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 *//*
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.mainboard_fragment,
-					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}*/
 
 }
