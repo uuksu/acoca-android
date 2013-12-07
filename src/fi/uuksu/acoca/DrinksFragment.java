@@ -1,6 +1,7 @@
 package fi.uuksu.acoca;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +61,7 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 		ArrayList<Drink> drinks = db.getDrinks();
 		Drink[] drinksArray = drinks.toArray(new Drink[drinks.size()]);
 		
-		ListView drinkListView = (ListView) getView().findViewById(R.id.drinkListView);
+		ListView drinkListView = (ListView) getView().findViewById(R.id.drinkHistoryListView);
 		drinkListView.setAdapter(new DrinkListViewAdapter(getActivity(), drinksArray));
 		drinkListView.setOnItemClickListener(new ListClickHandler());
 	}
@@ -106,18 +108,35 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 	private class ListClickHandler implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
-			new AlertDialog.Builder(getActivity())
+		public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg3) {
+			
+			final DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
+			
+			if (session == null) {
+				Toast.makeText(getActivity(), R.string.drink_mode_notice, Toast.LENGTH_LONG).show();
+			} else {
+				new AlertDialog.Builder(getActivity())
 				.setMessage(R.string.drink_confirmation)
 				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						
+						AcocaDatabase db = new AcocaDatabase(getActivity());
+						
+						// Get current drink
+						Drink drink = db.getDrinks().get(position);
+						
+						// Create new consumed drink
+						ConsumedDrink consumedDrink = new ConsumedDrink(new Date(), drink.getId(), session.getId());
+						consumedDrink.saveToDatabase(getActivity());
 					}
 				})
 				.setNegativeButton(R.string.no, null)
 				.show();
+			}
+			
+
 		}
 		
 	}

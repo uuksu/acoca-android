@@ -8,7 +8,7 @@
     <string name="drinks_title">Drinks</string>
     <string name="current_alcohol_level">Current alcohol level:</string>
     <string name="money_spend">Money spend:</string>
-    <string name="drink_mode">Drink_mode:</string>
+    <string name="drink_mode">Drink mode:</string>
     <string name="history">History:</string>
     <string name="save_settings">Save settings</string>
     <string name="body_weight">Body weight (kg):</string>
@@ -22,5 +22,6 @@
     <string name="drink_confirmation">Do you want to consume this drink?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="drink_mode_notice">You have to be in drink mode to consume drink!</string>
 
 </resources>

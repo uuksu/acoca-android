@@ -1,5 +1,9 @@
 package fi.uuksu.acoca;
 
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,10 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainboardFragment extends Fragment implements OnClickListener {
+	
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -24,6 +33,52 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 	}
 	
 	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		
+		DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
+		
+		if (session != null) {
+			ToggleButton drinkModeButton = (ToggleButton) getView().findViewById(R.id.drinkModeButton);
+			drinkModeButton.setChecked(true);
+		}
+		
+		loadMainBoard();
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		loadMainBoard();
+	}
+	
+	public void loadMainBoard() {
+		
+		DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
+		
+		if (session != null) {
+			
+			// Loading consumed drink history
+			ListView historyListView = (ListView) getView().findViewById(R.id.drinkHistoryListView);
+			AcocaDatabase db = new AcocaDatabase(getActivity());
+			ArrayList<Drink> consumedDrinks = db.getSessionDrinks(session.getId());
+			ArrayList<String> drinkStrings = new ArrayList<String>();
+			
+			for (int i = 0; i < consumedDrinks.size(); i++) {
+				Drink drink = consumedDrinks.get(i);
+				String row = drink.getName() + ", " + drink.getValue() + " €";
+				drinkStrings.add(row);
+			}
+			
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.drink_history_list_view, R.id.drinkName, drinkStrings.toArray(new String[drinkStrings.size()]));
+			historyListView.setAdapter(adapter);
+		}
+	}
+	
+	@Override
 	public void onClick(View view) {
 		
 		Activity activity = getActivity();
@@ -34,9 +89,14 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			boolean on = ((ToggleButton) view).isChecked();
 			
 			if (on) {
-				Toast.makeText(getActivity(), "Drink mode on", Toast.LENGTH_SHORT).show();
+				DrinkSession session = new DrinkSession(-1, new Date(), null);
+				session.startSession(activity);
+				//Toast.makeText(getActivity(), "Drink mode on", Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(getActivity(), "Drink mode off", Toast.LENGTH_SHORT).show();
+				DrinkSession session = DrinkSession.GetCurrentDrinkSession(activity);
+				session.setEndTime(new Date());
+				session.endSession(activity);
+				//Toast.makeText(getActivity(), "Drink mode off", Toast.LENGTH_SHORT).show();
 			}
 			
 			break;

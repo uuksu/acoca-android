@@ -2,6 +2,8 @@ package fi.uuksu.acoca;
 
 import java.util.Date;
 
+import android.content.Context;
+
 public class ConsumedDrink {
 	private int id;
 	private Date AddTime;
@@ -37,5 +39,10 @@ public class ConsumedDrink {
 	}
 	public void setDrinkSessionId(int drinkSessionId) {
 		DrinkSessionId = drinkSessionId;
+	}
+	
+	public void saveToDatabase(Context context) {
+		AcocaDatabase db = new AcocaDatabase(context);
+		db.addNewConsumedDrink(getAddTime().getTime() / 1000, getDrinkId(), getDrinkSessionId());
 	}
 }

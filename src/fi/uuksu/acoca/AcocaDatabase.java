@@ -1,6 +1,7 @@
 package fi.uuksu.acoca;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -83,7 +84,7 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		
 		ContentValues values = new ContentValues();
 		
-		values.put("startTime", addTimeUnixTimestamp);
+		values.put("addTime", addTimeUnixTimestamp);
 		values.put("drinkId", drinkId);
 		values.put("drinkSessionId", drinkSessionId);
 		
@@ -121,15 +122,15 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		return drinks;
 	}
 	
-	public ArrayList<ConsumedDrink> getSessionDrinks(int sessionDrinkId) {
+	public ArrayList<Drink> getSessionDrinks(int sessionDrinkId) {
 		
 		SQLiteDatabase database = this.getWritableDatabase();
 		
 		ArrayList<Drink> drinks = new ArrayList<Drink>();
 		
 		String query = "SELECT Drink.id, Drink.name, Drink.value, Drink.alcoholLevel, Drink.amount FROM ConsumedDrink " +
-					   "LEFT JOIN Drink ON ConsumedDrink.drinkId = Drink.id " +
-					   "WHERE ConsumedDrink.drinkSessionId = " + Integer.toString(sessionDrinkId) + "' " +
+					   "JOIN Drink ON ConsumedDrink.drinkId = Drink.id " +
+					   "WHERE ConsumedDrink.drinkSessionId = '" + Integer.toString(sessionDrinkId) + "' " +
 					   "ORDER BY name";
 		
 		Cursor cursor = database.rawQuery(query, null);
@@ -149,7 +150,39 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 				
 			} while(cursor.moveToNext());
 		}
-		return null;
+		
+		return drinks;
+	}
+	
+	public DrinkSession getActiveDrinkSession() {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		String query = "SELECT * FROM DrinkSession WHERE endTime < 0";
+		
+		Cursor cursor = database.rawQuery(query, null);
+		
+		if (cursor.getCount() > 0)
+		{
+			cursor.moveToFirst();
+			
+			DrinkSession session = new DrinkSession(cursor.getInt(0), new Date(cursor.getLong(1) * 1000), new Date(0));
+			
+			return session;
+			
+		} else {
+			return null;
+		}
+	}
+	
+	public void updateSession(String id, long endTimeUnixTimestamp) {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put("endTime", endTimeUnixTimestamp);
+		
+		database.update("DrinkSession", values, "id = ?", new String[] { id });
 	}
 	
 	public void updateSetting(String key, String value) {
