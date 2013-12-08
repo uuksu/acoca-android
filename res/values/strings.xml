@@ -14,14 +14,16 @@
     <string name="body_weight">Body weight (kg):</string>
     <string name="sex">Sex:</string>
     <string name="name">Name:</string>
-    <string name="price">Price:</string>
-    <string name="alcohol_level">Alcohol Level:</string>
-    <string name="amount">Amount:</string>
+    <string name="price">Price (€):</string>
+    <string name="alcohol_level">Alcohol Level (%):</string>
+    <string name="amount">Amount (L):</string>
     <string name="add">Add</string>
     <string name="add_new_drink">Add new drink</string>
     <string name="drink_confirmation">Do you want to consume this drink?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="drink_mode_notice">You have to be in drink mode to consume drink!</string>
+    <string name="drinks_page_info">Hint: Touch drink to consume it.</string>
+    <string name="weight_info">Notice: Your weight and sex is used to calculate correct blood alcohol content level.</string>
 
 </resources>

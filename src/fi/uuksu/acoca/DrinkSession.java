@@ -51,6 +51,13 @@ public class DrinkSession {
 		db.updateSession(String.valueOf(getId()), getEndTime().getTime() / 1000);
 	}
 	
+	public double getTotalDrinkingTime() {
+		Date now = new Date();
+		long diff = now.getTime() - getStartTime().getTime();
+		
+		return diff / (60 * 60 * 1000);
+	}
+	
 	public static DrinkSession GetCurrentDrinkSession(Context context) {
 		AcocaDatabase db = new AcocaDatabase(context);
 		return db.getActiveDrinkSession();

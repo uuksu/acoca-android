@@ -1,6 +1,7 @@
 package fi.uuksu.acoca;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,13 +14,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainboardFragment extends Fragment implements OnClickListener {
-	
-	
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -45,6 +45,12 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 		}
 		
 		loadMainBoard();
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
 	}
 	
 	@Override
@@ -75,6 +81,33 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.drink_history_list_view, R.id.drinkName, drinkStrings.toArray(new String[drinkStrings.size()]));
 			historyListView.setAdapter(adapter);
+			
+			// Calculating blood alcohol content
+			double weight = Double.parseDouble(db.getSetting("weight"));
+			Sex sex;
+			
+			if (db.getSetting("sex") == "0") {
+				sex = Sex.Male;
+			} else {
+				sex = Sex.Female;
+			}
+			
+			double totalAlcoholVolumeAsGrams = AlcoholTools.CalculateTotalGramsOfAlcohol(consumedDrinks);
+			
+			double hours = session.getTotalDrinkingTime();
+			
+			double BAC = AlcoholTools.CalculateBAC(weight, totalAlcoholVolumeAsGrams, sex, hours);
+			
+			// Calculating total costs
+			double totalCosts = AlcoholTools.CalculateTotalCosts(consumedDrinks);
+			
+			TextView currentAlcoholLevelTextView = (TextView) getView().findViewById(R.id.alcoholLevelTextView);
+			TextView totalCostsTextView = (TextView) getView().findViewById(R.id.totalCostsTextView);
+			
+			DecimalFormat f = new DecimalFormat("##.##");
+			
+			currentAlcoholLevelTextView.setText(f.format(BAC));
+			totalCostsTextView.setText(f.format(totalCosts));
 		}
 	}
 	

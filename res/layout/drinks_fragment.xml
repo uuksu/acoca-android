@@ -17,10 +17,18 @@
         
       </Button>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drinks_page_info"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginBottom="10dip" />
+
     <ListView
         android:id="@+id/drinkHistoryListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="351dp" >
     </ListView>
 
 </LinearLayout>

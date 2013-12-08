@@ -2,16 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layout_marginBottom="10dip" >
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
 
-    <LinearLayout
+    <TextView android:id="@+id/nameTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name" android:textAppearance="?android:attr/textAppearanceLarge" /><LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|right" >
@@ -21,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -29,20 +25,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:text="€"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/alcoholLevelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="18sp"
+            android:layout_marginLeft="15dip" />
 
         <TextView
             android:id="@+id/TextView01"
@@ -50,19 +41,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:text="%"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/amountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="18sp"
+            android:layout_marginLeft="15dip" />
 
         <TextView
             android:id="@+id/TextView02"
@@ -70,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dip"
             android:text="L"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>
