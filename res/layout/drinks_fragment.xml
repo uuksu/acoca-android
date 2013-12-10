@@ -18,7 +18,7 @@
       </Button>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/bacInfoTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/drinks_page_info"

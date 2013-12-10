@@ -8,11 +8,13 @@ public class DrinkSession {
 	private int id;
 	private Date startTime;
 	private Date endTime;
+	private String name;
 	
-	public DrinkSession(int id, Date startTime, Date endTime) {
+	public DrinkSession(int id, Date startTime, Date endTime, String name) {
 		this.setId(id);
 		this.setStartTime(startTime);
 		this.setEndTime(endTime);
+		this.setName(name);
 	}
 	
 	public int getId() {
@@ -40,6 +42,14 @@ public class DrinkSession {
 		this.endTime = endTime;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void startSession(Context context)
 	{
 		AcocaDatabase db = new AcocaDatabase(context);
@@ -48,7 +58,7 @@ public class DrinkSession {
 	
 	public void endSession(Context context) {
 		AcocaDatabase db = new AcocaDatabase(context);
-		db.updateSession(String.valueOf(getId()), getEndTime().getTime() / 1000);
+		db.updateSession(String.valueOf(getId()), this.getEndTime().getTime() / 1000, this.getName());
 	}
 	
 	public double getTotalDrinkingTime() {
@@ -62,5 +72,7 @@ public class DrinkSession {
 		AcocaDatabase db = new AcocaDatabase(context);
 		return db.getActiveDrinkSession();
 	}
+
+
 	
 }

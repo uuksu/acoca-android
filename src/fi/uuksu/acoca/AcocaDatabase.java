@@ -21,7 +21,7 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		String query = "CREATE TABLE Drink (id INTEGER PRIMARY KEY, name TEXT, value REAL, alcoholLevel REAL, amount REAL)";
 		db.execSQL(query);
 		
-		query = "CREATE TABLE DrinkSession (id INTEGER PRIMARY KEY, startTime INTEGER, endTime INTEGER)";
+		query = "CREATE TABLE DrinkSession (id INTEGER PRIMARY KEY, startTime INTEGER, endTime INTEGER, name TEXT)";
 		db.execSQL(query);
 		
 		query = "CREATE TABLE ConsumedDrink (id INTEGER PRIMARY KEY, addTime INTEGER, drinkId INTEGER, drinkSessionId INTEGER)";
@@ -60,8 +60,6 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		values.put("amount", amount);
 		
 		database.insert("Drink", null, values);
-		
-		database.close();
 	}
 	
 	public void addNewSession(long startTimeUnixTimestamp, long endTimeUnixTimestamp) {
@@ -74,8 +72,6 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		values.put("endTime", endTimeUnixTimestamp);
 		
 		database.insert("DrinkSession", null, values);
-		
-		database.close();
 	}
 	
 	public void addNewConsumedDrink(long addTimeUnixTimestamp, int drinkId, int drinkSessionId) {
@@ -89,8 +85,6 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		values.put("drinkSessionId", drinkSessionId);
 		
 		database.insert("ConsumedDrink", null, values);
-		
-		database.close();
 	}
 	
 	public ArrayList<Drink> getDrinks() {
@@ -166,11 +160,12 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		{
 			cursor.moveToFirst();
 			
-			DrinkSession session = new DrinkSession(cursor.getInt(0), new Date(cursor.getLong(1) * 1000), new Date(0));
+			DrinkSession session = new DrinkSession(cursor.getInt(0), new Date(cursor.getLong(1) * 1000), new Date(0), null);
 			
 			return session;
 			
 		} else {
+			
 			return null;
 		}
 	}
@@ -184,12 +179,13 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		database.execSQL(query);
 	}
 	
-	public void updateSession(String id, long endTimeUnixTimestamp) {
+	public void updateSession(String id, long endTimeUnixTimestamp, String name) {
 		
 		SQLiteDatabase database = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
 		values.put("endTime", endTimeUnixTimestamp);
+		values.put("name", name);
 		
 		database.update("DrinkSession", values, "id = ?", new String[] { id });
 	}
