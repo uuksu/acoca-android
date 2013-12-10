@@ -1,4 +1,4 @@
-package fi.uuksu.acoca;
+package fi.uuksu.acoca.fragments;
 
 
 import java.text.DateFormat;
@@ -6,6 +6,17 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import fi.uuksu.acoca.AlcoholTools;
+import fi.uuksu.acoca.BACWarningMessage;
+import fi.uuksu.acoca.R;
+import fi.uuksu.acoca.Sex;
+import fi.uuksu.acoca.R.id;
+import fi.uuksu.acoca.R.layout;
+import fi.uuksu.acoca.R.string;
+import fi.uuksu.acoca.database.AcocaDatabase;
+import fi.uuksu.acoca.database.Drink;
+import fi.uuksu.acoca.database.DrinkSession;
 
 import android.app.Activity;
 import android.app.AlertDialog;

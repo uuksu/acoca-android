@@ -1,5 +1,9 @@
-package fi.uuksu.acoca;
+package fi.uuksu.acoca.fragments;
 
+import fi.uuksu.acoca.R;
+import fi.uuksu.acoca.R.id;
+import fi.uuksu.acoca.R.layout;
+import fi.uuksu.acoca.database.AcocaDatabase;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

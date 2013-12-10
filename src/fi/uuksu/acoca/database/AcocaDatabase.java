@@ -1,4 +1,4 @@
-package fi.uuksu.acoca;
+package fi.uuksu.acoca.database;
 
 import java.util.ArrayList;
 import java.util.Date;

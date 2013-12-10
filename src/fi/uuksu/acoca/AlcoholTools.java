@@ -2,6 +2,8 @@ package fi.uuksu.acoca;
 
 import java.util.ArrayList;
 
+import fi.uuksu.acoca.database.Drink;
+
 public class AlcoholTools {
 	
 	public static double CalculateBAC(double bodyWeight, double alcoholVolumeAsGrams, Sex sex, double hours) {

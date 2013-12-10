@@ -1,7 +1,16 @@
-package fi.uuksu.acoca;
+package fi.uuksu.acoca.activities;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import fi.uuksu.acoca.R;
+import fi.uuksu.acoca.R.id;
+import fi.uuksu.acoca.R.layout;
+import fi.uuksu.acoca.R.menu;
+import fi.uuksu.acoca.R.string;
+import fi.uuksu.acoca.fragments.DrinksFragment;
+import fi.uuksu.acoca.fragments.MainboardFragment;
+import fi.uuksu.acoca.fragments.SettingsFragment;
 
 import android.content.Context;
 import android.os.Bundle;
