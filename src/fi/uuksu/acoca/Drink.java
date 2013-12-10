@@ -63,4 +63,9 @@ public class Drink {
 		db.addNewDrink(getName(), getValue(), getAlcoholLevel(), getAmount());
 		
 	}
+	
+	public void deleteFromDatabase(Context context) {
+		AcocaDatabase db = new AcocaDatabase(context);
+		db.deleteDrink(getId());
+	}
 }

@@ -28,7 +28,7 @@
     <ListView
         android:id="@+id/drinkHistoryListView"
         android:layout_width="match_parent"
-        android:layout_height="351dp" >
+        android:layout_height="match_parent" >
     </ListView>
 
 </LinearLayout>

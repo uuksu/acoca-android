@@ -14,9 +14,11 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -24,6 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DrinksFragment extends Fragment implements OnClickListener {
+	
+	OnDrinkConsumedListener mCallBack;
+	
+	public interface OnDrinkConsumedListener {
+		public void onDrinkConsumed();
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,13 +65,28 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onStart();
 		
+		loadDrinks();
+		
+	}
+	
+	private void loadDrinks() {
+		
 		AcocaDatabase db = new AcocaDatabase(getActivity());
 		ArrayList<Drink> drinks = db.getDrinks();
 		Drink[] drinksArray = drinks.toArray(new Drink[drinks.size()]);
 		
 		ListView drinkListView = (ListView) getView().findViewById(R.id.drinkHistoryListView);
 		drinkListView.setAdapter(new DrinkListViewAdapter(getActivity(), drinksArray));
-		drinkListView.setOnItemClickListener(new ListClickHandler());
+		drinkListView.setOnItemClickListener(new ListItemClickHandler());
+		drinkListView.setOnItemLongClickListener(new ListItemLongClickHandler());
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mCallBack = (OnDrinkConsumedListener) activity;
 	}
 	
 	private class DrinkListViewAdapter extends ArrayAdapter<Drink> {
@@ -105,16 +128,19 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 		
 	}
 	
-	private class ListClickHandler implements OnItemClickListener {
+	private class ListItemClickHandler implements OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg3) {
 			
 			final DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
 			
+			// If there is no active session
 			if (session == null) {
 				Toast.makeText(getActivity(), R.string.drink_mode_notice, Toast.LENGTH_LONG).show();
+				
 			} else {
+				
 				new AlertDialog.Builder(getActivity())
 				.setMessage(R.string.drink_confirmation)
 				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -130,16 +156,53 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 						// Create new consumed drink
 						ConsumedDrink consumedDrink = new ConsumedDrink(new Date(), drink.getId(), session.getId());
 						consumedDrink.saveToDatabase(getActivity());
+						
+						// Passing note of the change to the mainboard fragment
+						mCallBack.onDrinkConsumed();
+					}
+				})
+				.setNegativeButton(R.string.no, null)
+				.show();
+			}
+		}
+		
+	}
+	
+	private class ListItemLongClickHandler implements OnItemLongClickListener {
+		
+		@Override
+		public boolean onItemLongClick(AdapterView<?> adapter, View view, final int position, long arg3) {
+			
+			final DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
+			
+			// If there is no active session
+			if (session == null) {
+				
+				new AlertDialog.Builder(getActivity())
+				.setMessage(R.string.delete_confirmation)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						AcocaDatabase db = new AcocaDatabase(getActivity());
+						
+						// Get current drink
+						Drink drink = db.getDrinks().get(position);
+						drink.deleteFromDatabase(getActivity());
+						
+						loadDrinks();
 					}
 				})
 				.setNegativeButton(R.string.no, null)
 				.show();
 			}
 			
-
+			return false;
 		}
-		
 	}
+
+
 	
 	
 

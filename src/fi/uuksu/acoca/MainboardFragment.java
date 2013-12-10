@@ -44,7 +44,7 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			drinkModeButton.setChecked(true);
 		}
 		
-		loadMainBoard();
+		loadMainboard();
 	}
 	
 	@Override
@@ -58,10 +58,10 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		loadMainBoard();
+		loadMainboard();
 	}
 	
-	public void loadMainBoard() {
+	public void loadMainboard() {
 		
 		DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
 		
@@ -97,6 +97,10 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			double hours = session.getTotalDrinkingTime();
 			
 			double BAC = AlcoholTools.CalculateBAC(weight, totalAlcoholVolumeAsGrams, sex, hours);
+			
+			if (BAC < 0) {
+				BAC = 0;
+			}
 			
 			// Calculating total costs
 			double totalCosts = AlcoholTools.CalculateTotalCosts(consumedDrinks);

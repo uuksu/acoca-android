@@ -21,7 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements DrinksFragment.OnDrinkConsumedListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -133,6 +133,22 @@ public class MainActivity extends FragmentActivity {
 			}
 			return null;
 		}
+	}
+	
+	private static String makeFragmentName(int viewId, int index) {
+	     return "android:switcher:" + viewId + ":" + index;
+	}
+
+	@Override
+	public void onDrinkConsumed() {
+		String tag = makeFragmentName(R.id.pager, 0);
+		
+		MainboardFragment mainboardFragment = (MainboardFragment) getSupportFragmentManager().findFragmentByTag(tag);
+		
+		if (mainboardFragment != null) {
+			mainboardFragment.loadMainboard();
+		}
+		
 	}
 
 }

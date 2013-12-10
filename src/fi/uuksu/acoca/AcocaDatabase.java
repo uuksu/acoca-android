@@ -175,6 +175,15 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		}
 	}
 	
+	public void deleteDrink(int id) {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		String query = "DELETE FROM Drink WHERE id = " + id;
+		
+		database.execSQL(query);
+	}
+	
 	public void updateSession(String id, long endTimeUnixTimestamp) {
 		
 		SQLiteDatabase database = this.getWritableDatabase();
