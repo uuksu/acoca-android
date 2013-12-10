@@ -28,6 +28,6 @@
     <string name="delete_confirmation">Are you sure you want to delete this drink?</string>
     <string name="bac_over_050">Warning! You\'re not able to operate motorized vehicle.</string>
     <string name="ok">OK</string>
-    <string name="enter_name">Enter name of the session:</string>
+    <string name="enter_name">Enter name of the session (leave empty for default):</string>
 
 </resources>

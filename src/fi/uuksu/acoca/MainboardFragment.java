@@ -181,9 +181,8 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 						session.setEndTime(new Date());
 						session.endSession(activity);
 					}
-					
-					
 				})
+				.setCancelable(false)
 				.show();
 				break;
 				//Toast.makeText(getActivity(), "Drink mode off", Toast.LENGTH_SHORT).show();
