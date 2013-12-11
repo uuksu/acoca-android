@@ -55,5 +55,16 @@ public class AlcoholTools {
 		return total;
 	}
 	
+	public static double CalculateHighestBAC(ArrayList<Drink> drinks, double bodyWeight, Sex sex) {
+		
+		double HighBAC = 0;
+		
+		for (int i = 0; i < drinks.size(); i++) {
+			Drink drink = drinks.get(i);
+		}
+		
+		return 0;
+	}
+	
 	
 }

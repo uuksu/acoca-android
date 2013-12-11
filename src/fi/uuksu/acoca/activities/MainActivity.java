@@ -9,6 +9,7 @@ import fi.uuksu.acoca.R.layout;
 import fi.uuksu.acoca.R.menu;
 import fi.uuksu.acoca.R.string;
 import fi.uuksu.acoca.fragments.DrinksFragment;
+import fi.uuksu.acoca.fragments.HistoryFragment;
 import fi.uuksu.acoca.fragments.MainboardFragment;
 import fi.uuksu.acoca.fragments.SettingsFragment;
 
@@ -116,6 +117,9 @@ public class MainActivity extends FragmentActivity implements DrinksFragment.OnD
 				fragment = new DrinksFragment();
 				break;
 			case 2:
+				fragment = new HistoryFragment();
+				break;
+			case 3:
 				fragment = new SettingsFragment();
 				break;
 			}
@@ -126,7 +130,7 @@ public class MainActivity extends FragmentActivity implements DrinksFragment.OnD
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 4;
 		}
 
 		@Override
@@ -138,7 +142,10 @@ public class MainActivity extends FragmentActivity implements DrinksFragment.OnD
 			case 1:
 				return getString(R.string.drinks_title).toUpperCase(l);
 			case 2:
+				return getString(R.string.history_title).toUpperCase(l);
+			case 3:
 				return getString(R.string.settings_title).toUpperCase(l);
+				
 			}
 			return null;
 		}

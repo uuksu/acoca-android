@@ -170,6 +170,60 @@ public class AcocaDatabase extends SQLiteOpenHelper {
 		}
 	}
 	
+	public DrinkSession getDrinkSession(int id) {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		
+		String query = "SELECT * FROM DrinkSession WHERE id = " + id;
+		
+		Cursor cursor = database.rawQuery(query, null);
+		
+		if (cursor.getCount() > 0)
+		{
+			cursor.moveToFirst();
+			
+			DrinkSession session = new DrinkSession(
+					cursor.getInt(0),
+					new Date(cursor.getLong(1) * 1000),
+					new Date(cursor.getLong(2) * 1000),
+					cursor.getString(3));
+			
+			return session;
+			
+		} else {
+			
+			return null;
+		}
+	}
+	
+	public ArrayList<DrinkSession> getAllDrinkSessions() {
+		
+		SQLiteDatabase database = this.getWritableDatabase();
+		ArrayList<DrinkSession> drinkSessions = new ArrayList<DrinkSession>();
+		
+		String query = "SELECT * FROM DrinkSession WHERE name != '' ORDER BY startTime DESC";
+		
+		Cursor cursor = database.rawQuery(query, null);
+		
+		if (cursor.moveToFirst()) {
+			do {
+			
+				
+				DrinkSession session = new DrinkSession(
+						cursor.getInt(0),
+						new Date(cursor.getLong(1) * 1000),
+						new Date(cursor.getLong(2) * 1000),
+						cursor.getString(3));
+				
+				drinkSessions.add(session);
+				
+				
+			} while(cursor.moveToNext());
+		}
+		
+		return drinkSessions;
+	}
+	
 	public void deleteDrink(int id) {
 		
 		SQLiteDatabase database = this.getWritableDatabase();

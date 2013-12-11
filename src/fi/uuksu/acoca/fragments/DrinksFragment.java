@@ -121,7 +121,7 @@ public class DrinksFragment extends Fragment implements OnClickListener {
 			// Getting text view elements from layout
 			TextView nameTextView = (TextView) rowView.findViewById(R.id.nameTextView);
 			TextView priceTextView = (TextView) rowView.findViewById(R.id.priceTextView);
-			TextView alcoholLevelTextView = (TextView) rowView.findViewById(R.id.alcoholLevelTextView);
+			TextView alcoholLevelTextView = (TextView) rowView.findViewById(R.id.historyAlcoholLevelTextView);
 			TextView amountTextView = (TextView) rowView.findViewById(R.id.amountTextView);
 			
 			Drink drink = objects[position];

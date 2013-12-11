@@ -55,7 +55,7 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			drinkModeButton.setEnabled(false);
 		}
 		
-		TextView currentAlcoholLevelTextView = (TextView) v.findViewById(R.id.alcoholLevelTextView);
+		TextView currentAlcoholLevelTextView = (TextView) v.findViewById(R.id.historyAlcoholLevelTextView);
 		currentAlcoholLevelTextView.setOnClickListener(this);
 		
 		return v;
@@ -142,8 +142,8 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 			double totalCosts = AlcoholTools.CalculateTotalCosts(consumedDrinks);
 			double BAC = getBAC(session, db);
 			
-			TextView currentAlcoholLevelTextView = (TextView) getView().findViewById(R.id.alcoholLevelTextView);
-			TextView totalCostsTextView = (TextView) getView().findViewById(R.id.totalCostsTextView);
+			TextView currentAlcoholLevelTextView = (TextView) getView().findViewById(R.id.historyAlcoholLevelTextView);
+			TextView totalCostsTextView = (TextView) getView().findViewById(R.id.historyTotalCostsTextView);
 			
 			DecimalFormat f = new DecimalFormat("##.##");
 			
@@ -198,7 +198,7 @@ public class MainboardFragment extends Fragment implements OnClickListener {
 				break;
 				//Toast.makeText(getActivity(), "Drink mode off", Toast.LENGTH_SHORT).show();
 			}
-		case R.id.alcoholLevelTextView:
+		case R.id.historyAlcoholLevelTextView:
 			
 			DrinkSession session = DrinkSession.GetCurrentDrinkSession(getActivity());
 			AcocaDatabase db = new AcocaDatabase(activity);

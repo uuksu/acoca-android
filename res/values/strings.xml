@@ -29,5 +29,8 @@
     <string name="bac_over_050">Warning! You\'re not able to operate motorized vehicle.</string>
     <string name="ok">OK</string>
     <string name="enter_name">Enter name of the session (leave empty for default):</string>
+    <string name="history_title">History</string>
+    <string name="select_drinking_session">Select drinking session:</string>
+    <string name="highest_alcohol_level">Highest alcohol level:</string>
 
 </resources>
